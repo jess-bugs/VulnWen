@@ -1,0 +1,53 @@
+
+
+<?php
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
+    $server = '192.168.1.14';
+    $user = 'bugs';
+    $pass = 'Onesandzeroes23!';
+    $database = 'vuln_users';
+    $port = 4443;
+    
+    
+    
+    
+    
+    
+    $conn = mysqli_connect($server, $user, $pass, $database, $port);
+    
+    if(!$conn) {
+        
+        echo "<br>ERROR: " . mysqli_connect_error() . "<br>";
+        
+    } else {
+        
+        echo "<br>Connected<br>";
+        
+    }
+
+
+
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+
+    $query = "SELECT * FROM Users WHERE Username = '$username' AND Password = '$password'";
+    $result = mysqli_query($conn, $query);
+
+    if(mysqli_num_rows($result) > 0) {
+
+        header('Location: success.html');
+
+    } else {
+
+        header('Location: error.html');
+    }
+
+
+}
+
+
